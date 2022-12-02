@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             //definimos la clave foranea con la tabla users
             $table->foreign('id')->references('id')->on('users');
-            $table->string('nombre', 100);
+            $table->string('nombreComercio', 100);
             $table->string('descripcion', 300)->nullable();
             $table->string('imagen', 300)->nullable();
             $table->string('direccion', 300);

@@ -19,7 +19,7 @@ class ComercioSeeder extends Seeder
 
         DB::table('comercios')->insert([
             'id' => '2',
-            'nombre' => 'SuperMarket',
+            'nombreComercio' => 'SuperMarket',
             'descripcion' => 'Tienda de alimentación',
             'imagen' => '',
             'direccion' => 'Calle Enfermera Angelina Nº 56',
@@ -32,7 +32,7 @@ class ComercioSeeder extends Seeder
 
         DB::table('comercios')->insert([
             'id' => '4',
-            'nombre' => 'Zapatería',
+            'nombreComercio' => 'Zapatería',
             'descripcion' => 'Tienda de zapatos y complementos',
             'imagen' => '',
             'direccion' => 'Calle Doctor Jiménez Nº 14',

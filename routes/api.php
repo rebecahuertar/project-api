@@ -35,29 +35,20 @@ Route::get('users', [UserController::class, 'index']);
 Route::post('user', [UserController::class, 'store']);
 Route::get('user/{id}', [UserController::class, 'show']);
 
+//rutas comercio
+Route::get('comercio', [ComercioController::class, 'index']);
+Route::get('comercio/{id}', [ComercioController::class, 'show']);
+Route::post('comercio', [ComercioController::class, 'store']);
+
 //rutas cliente
 Route::get('clientes', [ClienteController::class, 'index']);
 Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::post('cliente', [ClienteController::class, 'store']);
+
+
 
 //rutas provincias
 Route::get('provincia', [ProvinciaController::class, 'index']);
 
 //rutas municipio
 Route::get('municipio/{id}', [MunicipioController::class, 'show']);
-
-
-
-
-//rutas categorias
-Route::resource('categoria', CategoriaController::class);
-
-//rutas comercio
-Route::resource('comercio', ComercioController::class);
-
-
-
-
-
-//Route::get('api/noticias/{pagina}', [ApiController::class, 'noticias']);
-//Route::get('api/noticia/{idNoticia}', [ApiController::class, 'noticia']);

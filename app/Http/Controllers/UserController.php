@@ -29,7 +29,7 @@ class UserController extends Controller
         return User::find($id);
     }
     //crear nuevo usuario
-    public function store(Request $request)
+    /* public function store(Request $request)
     {
         $existEmail = User::where('email', $request->email)->first();
         if ($existEmail) {
@@ -37,13 +37,29 @@ class UserController extends Controller
         }
         //codificamos el password antes de crear el registro.
         $request['password'] = bcrypt($request->input('password'));
-        $user = User::create($request->all());
+        //$user = User::create($request->all());
+
+        $user = User::create([
+            'nombre' => $request['nombre'],
+            'apellidos' => $request['apellidos'],
+            'email' => $request['email'],
+            'password' => $request['password'],
+            'tipoUsuario' => $request['tipoUsuario'],
+            'activo' => $request['activo'],
+        ]);
+
+        //cogemos el id de user que se ha creado para insertarlo en la tabla de cliente
+        $cliente = Cliente::create([
+            'id' => $user->id,
+            'idMunicipio' => $request['idMunicipio'],
+            'idProvincia' => $request['idProvincia'],
+            'codigopostal' => $request['codigopostal'],
+        ]);
 
         return response()->json([
-            'message' => 'Usuario registrado correctamente.',
-            'user' => $user,
+            'message' => 'Usuario registrado correctamente.'
         ]);
-    }
+    }*/
     //actualizar usuario
     public function update(Request $request, $id)
     {

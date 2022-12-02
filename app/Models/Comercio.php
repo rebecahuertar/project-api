@@ -11,7 +11,7 @@ class Comercio extends Model
 
     protected $fillable = [
         'id',
-        'nombre',
+        'nombreComercio',
         'descripcion',
         'imagen',
         'direccion',
