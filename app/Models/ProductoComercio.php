@@ -10,6 +10,7 @@ class ProductoComercio extends Model
     use HasFactory;
 
     protected $fillable = [
+        'idComercio',
         'producto'
     ];
 }

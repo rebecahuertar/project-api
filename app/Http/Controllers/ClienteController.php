@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cliente;
+use App\Models\Municipio;
+use App\Models\Provincia;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -20,10 +22,29 @@ class ClienteController extends Controller
     {
         return Cliente::all();
     }
-    //retornar un valor por id
+    //retornar un valor por id de un cliente
     public function show($id)
     {
-        return Cliente::find($id);
+        $user = User::find($id);
+        $cliente = Cliente::find($id);
+
+        if (($user) && ($cliente)) {
+            //buscamos por id el nombre del municipio y provincia
+            $municipio = Municipio::find($cliente->idMunicipio);
+            $provincia = Provincia::find($cliente->idProvincia);
+
+            return response()->json([
+                'nombre' => $user->nombre,
+                'apellidos' => $user->apellidos,
+                'email' => $user->email,
+                'password' => $user->password,
+                'idMunicipio' => $municipio->municipio,
+                'idProvincia' => $provincia->provincia,
+                'codigopostal' => $cliente->codigopostal,
+            ]);
+        } else {
+            return response()->json(['message' => 'No existe este cliente con ese user_id.'], 401);
+        }
     }
     //crear nuevo usuario
     public function store(Request $request)

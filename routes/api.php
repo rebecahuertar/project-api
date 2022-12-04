@@ -49,6 +49,8 @@ Route::post('cliente', [ClienteController::class, 'store']);
 
 //rutas provincias
 Route::get('provincia', [ProvinciaController::class, 'index']);
+Route::get('provincia/{id}', [ProvinciaController::class, 'show']);
 
 //rutas municipio
 Route::get('municipio/{id}', [MunicipioController::class, 'show']);
+Route::get('municipios/{id}', [MunicipioController::class, 'showByIdProvincia']);

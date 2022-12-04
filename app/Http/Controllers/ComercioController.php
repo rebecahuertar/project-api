@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Comercio;
+use App\Models\Municipio;
+use App\Models\Provincia;
 use Illuminate\Http\Request;
 
 class ComercioController extends Controller
@@ -21,7 +23,31 @@ class ComercioController extends Controller
     //retornar un valor por id
     public function show($id)
     {
-        return Comercio::find($id);
+        $user = User::find($id);
+        $comercio = Comercio::find($id);
+
+        if (($user) && ($comercio)) {
+            //buscamos por id el nombre del municipio y provincia
+            $municipio = Municipio::find($comercio->idMunicipio);
+            $provincia = Provincia::find($comercio->idProvincia);
+
+            return response()->json([
+                'nombre' => $user->nombre,
+                'apellidos' => $user->apellidos,
+                'email' => $user->email,
+                'password' => $user->password,
+                'nombreComercio' => $comercio->nombreComercio,
+                'descripcion' => $comercio->descripcion,
+                'direccion' => $comercio->direccion,
+                'idMunicipio' => $municipio->municipio,
+                'idProvincia' => $provincia->provincia,
+                'codigopostal' => $comercio->codigopostal,
+                'web' => $comercio->web,
+                'telefono' => $comercio->telefono,
+            ]);
+        } else {
+            return response()->json(['message' => 'No existe este comercio con ese user_id.'], 401);
+        }
     }
     //crear nuevo usuario
     public function store(Request $request)

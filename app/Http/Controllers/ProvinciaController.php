@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 
 class ProvinciaController extends Controller
 {
+
     //retornar todos los valores
     public function index()
     {
         return Provincia::all();
     }
-    //retornar un valor por id
+    //retornar un valor por idProvincia
     public function show($id)
     {
         return Provincia::find($id);

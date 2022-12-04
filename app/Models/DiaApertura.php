@@ -10,6 +10,7 @@ class DiaApertura extends Model
     use HasFactory;
 
     protected $fillable = [
+        'idComercio',
         'dia',
         'estado',
         'visible'

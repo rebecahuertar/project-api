@@ -10,6 +10,7 @@ class Mensaje extends Model
     use HasFactory;
 
     protected $fillable = [
+        'idComercio',
         'mensaje',
         'visible'
     ];

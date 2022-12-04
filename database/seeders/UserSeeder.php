@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'nombre' => 'Rebeca',
             'apellidos' => 'Huerta Rubio',
             'email' => 'rebecahuertar@uoc.edu',
-            'Password' => bcrypt('R1*H2*R3'),
+            'Password' => bcrypt('R5987456'),
             'tipoUsuario' => 'admin',
             'activo' => 'SI'
         ]);
@@ -36,6 +36,33 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
+            'nombre' => 'Pedro',
+            'apellidos' => 'Esteso Lopez',
+            'email' => 'predroel@prueba.com',
+            'password' => bcrypt('P7902351'),
+            'tipoUsuario' => 'comercio',
+            'activo' => 'SI'
+        ]);
+
+        DB::table('users')->insert([
+            'nombre' => 'Juan',
+            'apellidos' => 'Martinez Garcia',
+            'email' => 'juanmg@prueba.com',
+            'password' => bcrypt('J8354269'),
+            'tipoUsuario' => 'comercio',
+            'activo' => 'SI'
+        ]);
+
+        DB::table('users')->insert([
+            'nombre' => 'Alba',
+            'apellidos' => 'Cano Ortiz',
+            'email' => 'albaco@prueba.com',
+            'password' => bcrypt('A7531598'),
+            'tipoUsuario' => 'comercio',
+            'activo' => 'SI'
+        ]);
+
+        DB::table('users')->insert([
             'nombre' => 'Laura',
             'apellidos' => 'Garcia Martinez',
             'email' => 'lauragm@prueba.com',
@@ -45,19 +72,19 @@ class UserSeeder extends Seeder
         ]);
 
         DB::table('users')->insert([
-            'nombre' => 'Pedro',
-            'apellidos' => 'Sanchez Lopez',
-            'email' => 'predrosl@prueba.com',
-            'password' => bcrypt('P7902351'),
-            'tipoUsuario' => 'comercio',
+            'nombre' => 'Antonio',
+            'apellidos' => 'Haro Rubio',
+            'email' => 'antoniohr@prueba.com',
+            'password' => bcrypt('A9852365'),
+            'tipoUsuario' => 'cliente',
             'activo' => 'SI'
         ]);
 
         DB::table('users')->insert([
-            'nombre' => 'Jose',
-            'apellidos' => 'Ortiz Martinez',
-            'email' => 'joseom@prueba.com',
-            'password' => bcrypt('J6789055'),
+            'nombre' => 'Inés',
+            'apellidos' => 'Lopez Rubio',
+            'email' => 'ineslr@prueba.com',
+            'password' => bcrypt('I7462596'),
             'tipoUsuario' => 'cliente',
             'activo' => 'SI'
         ]);

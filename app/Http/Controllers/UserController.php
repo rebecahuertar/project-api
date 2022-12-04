@@ -15,11 +15,11 @@ class UserController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['store']]);
+        $this->middleware('auth:api');
     }
 
     //retornar todos los valores
-    public function index()
+    /* public function index()
     {
         return User::all();
     }
@@ -27,7 +27,7 @@ class UserController extends Controller
     public function show($id)
     {
         return User::find($id);
-    }
+    */
     //crear nuevo usuario
     /* public function store(Request $request)
     {
@@ -59,7 +59,7 @@ class UserController extends Controller
         return response()->json([
             'message' => 'Usuario registrado correctamente.'
         ]);
-    }*/
+    }
     //actualizar usuario
     public function update(Request $request, $id)
     {
@@ -73,5 +73,5 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return 204;
-    }
+    }*/
 }

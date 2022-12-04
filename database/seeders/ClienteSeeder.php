@@ -17,17 +17,24 @@ class ClienteSeeder extends Seeder
     public function run()
     {
         DB::table('clientes')->insert([
-            'id' => '3',
+            'id' => '6',
             'idMunicipio' => '628',
             'idProvincia' => '3',
             'codigopostal' => '03005',
         ]);
 
         DB::table('clientes')->insert([
-            'id' => '5',
+            'id' => '7',
             'idMunicipio' => '628',
             'idProvincia' => '3',
-            'codigopostal' => '03005',
+            'codigopostal' => '03004',
+        ]);
+
+        DB::table('clientes')->insert([
+            'id' => '8',
+            'idMunicipio' => '4786',
+            'idProvincia' => '3',
+            'codigopostal' => '02005',
         ]);
     }
 }
