@@ -44,7 +44,9 @@ Route::post('comercio', [ComercioController::class, 'store']);
 Route::get('clientes', [ClienteController::class, 'index']);
 Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::post('cliente', [ClienteController::class, 'store']);
-
+Route::put('cliente/{id}', [ClienteController::class, 'update']);
+Route::get('cliente/favoritos/{idCliente}', [ClienteController::class, 'favoritos']);
+Route::delete('cliente/favorito/{idCliente}/{idComercio}', [ClienteController::class, 'destroy']);
 
 
 //rutas provincias

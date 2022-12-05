@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cliente;
+use App\Models\Comercio;
+use App\Models\FavoritoCliente;
 use App\Models\Municipio;
 use App\Models\Provincia;
 use App\Models\User;
@@ -34,12 +37,15 @@ class ClienteController extends Controller
             $provincia = Provincia::find($cliente->idProvincia);
 
             return response()->json([
+                'idCliente' => $user->id,
                 'nombre' => $user->nombre,
                 'apellidos' => $user->apellidos,
                 'email' => $user->email,
                 'password' => $user->password,
-                'idMunicipio' => $municipio->municipio,
-                'idProvincia' => $provincia->provincia,
+                'idMunicipio' => $cliente->idMunicipio,
+                'municipio' => $municipio->municipio,
+                'idProvincia' => $cliente->idProvincia,
+                'provincia' => $provincia->provincia,
                 'codigopostal' => $cliente->codigopostal,
             ]);
         } else {
@@ -75,28 +81,59 @@ class ClienteController extends Controller
             ]);
             if (!$cliente) {
                 //que pasa si da error, tengo que borrar el user creado?????
-                response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
+                return response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
             }
         } else {
-            response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
+            return response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
         }
 
         return response()->json([
             'message' => 'Usuario cliente registrado correctamente.'
         ]);
     }
+
+    //favoritos del cliente
+    public function favoritos($id)
+    {
+        $cliente = FavoritoCliente::select('favorito_clientes.idCliente', 'favorito_clientes.idComercio', 'comercios.nombreComercio', 'favorito_clientes.verMensajes')
+            ->join('comercios', 'favorito_clientes.idComercio', '=', 'comercios.id')
+            ->where('favorito_clientes.idCliente', $id)
+            ->get();
+
+        if ($cliente) {
+            return $cliente;
+        } else {
+            return response()->json(['message' => 'No hay favoritos para este cliente.'], 401);
+        }
+    }
     //actualizar usuario
     public function update(Request $request, $id)
     {
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'nombre' => $request['nombre'],
+            'apellidos' => $request['apellidos'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
         $cliente = Cliente::findOrFail($id);
-        $cliente->update($request->all());
-        return $cliente;
+        $cliente->update([
+            'idMunicipio' => $request['idMunicipio'],
+            'idProvincia' => $request['idProvincia'],
+            'codigopostal' => $request['codigopostal'],
+        ]);
+
+        return response()->json(['message' => 'Actualizado correctamente.']);
     }
     //eliminar usuario
-    public function destroy($id)
+    public function destroy($idCliente, $idComercio)
     {
-        $cliente = Cliente::findOrFail($id);
-        $cliente->delete();
+
+        FavoritoCliente::where('idCliente', $idCliente)->where('idComercio', $idComercio)->firstOrFail()->delete();
+
+        //return response()->json(['message' => 'Eliminado favorito.']);
         return 204;
     }
 }
