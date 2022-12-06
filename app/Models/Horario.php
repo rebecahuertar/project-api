@@ -10,6 +10,7 @@ class Horario extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'idComercio',
         'descripcion',
         'visible'

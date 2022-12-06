@@ -127,7 +127,7 @@ class ClienteController extends Controller
 
         return response()->json(['message' => 'Actualizado correctamente.']);
     }
-    //eliminar usuario
+    //eliminar favorito
     public function destroy($idCliente, $idComercio)
     {
 

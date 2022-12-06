@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CategoriaComercio;
 use App\Models\User;
+use App\Models\Categoria;
 use App\Models\Comercio;
 use App\Models\Municipio;
 use App\Models\Provincia;
@@ -25,13 +27,17 @@ class ComercioController extends Controller
     {
         $user = User::find($id);
         $comercio = Comercio::find($id);
+        $categoriacom = CategoriaComercio::where('idComercio', $id)->first();
+
 
         if (($user) && ($comercio)) {
-            //buscamos por id el nombre del municipio y provincia
+            //buscamos por id el nombre del municipio, provincia y categoria
             $municipio = Municipio::find($comercio->idMunicipio);
             $provincia = Provincia::find($comercio->idProvincia);
+            $categoria = Categoria::where('id', $categoriacom->idCategoria)->first();
 
             return response()->json([
+                'idComercio' => $user->id,
                 'nombre' => $user->nombre,
                 'apellidos' => $user->apellidos,
                 'email' => $user->email,
@@ -39,8 +45,12 @@ class ComercioController extends Controller
                 'nombreComercio' => $comercio->nombreComercio,
                 'descripcion' => $comercio->descripcion,
                 'direccion' => $comercio->direccion,
-                'idMunicipio' => $municipio->municipio,
-                'idProvincia' => $provincia->provincia,
+                'idCategoria' => $categoriacom->idCategoria,
+                'categoria' => $categoria->nombre,
+                'idMunicipio' => $comercio->idMunicipio,
+                'municipio' => $municipio->municipio,
+                'idProvincia' => $comercio->idProvincia,
+                'provincia' => $provincia->provincia,
                 'codigopostal' => $comercio->codigopostal,
                 'web' => $comercio->web,
                 'telefono' => $comercio->telefono,
@@ -85,6 +95,14 @@ class ComercioController extends Controller
                 //que pasa si da error, tengo que borrar el user creado?????
                 response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
             }
+            //añadimos la categoria del comercio en la tabla categoria_comercios
+            $categoria = CategoriaComercio::create([
+                'idCategoria' => $request['idCategoria'],
+                'idComercio' => $user->id,
+            ]);
+            if (!$categoria) {
+                response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
+            }
         } else {
             response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
         }
@@ -97,9 +115,32 @@ class ComercioController extends Controller
     //actualizar usuario
     public function update(Request $request, $id)
     {
+        $user = User::findOrFail($id);
+        $user->update([
+            'nombre' => $request['nombre'],
+            'apellidos' => $request['apellidos'],
+            'email' => $request['email'],
+            'password' => bcrypt($request['password']),
+        ]);
+
         $comercio = Comercio::findOrFail($id);
-        $comercio->update($request->all());
-        return $comercio;
+        $comercio->update([
+            'nombreComercio' => $request['nombreComercio'],
+            'descripcion' => $request['descripcion'],
+            'direccion' => $request['direccion'],
+            'idMunicipio' => $request['idMunicipio'],
+            'idProvincia' => $request['idProvincia'],
+            'codigopostal' => $request['codigopostal'],
+            'web' => $request['web'],
+            'telefono' => $request['telefono'],
+        ]);
+
+        $categoriacom = CategoriaComercio::where('idComercio', $id)->first();
+        $categoriacom->update([
+            'idCategoria' => $request['idCategoria'],
+        ]);
+
+        return response()->json(['message' => 'Actualizado correctamente.']);
     }
     //eliminar usuario
     public function destroy($id)
