@@ -29,10 +29,26 @@ class HorarioController extends Controller
         }
     }
 
-    //retornar un valor por idComercio
+    //retornar un valor por idComercio para la parte del comercio
     public function showHorarios($idComercio)
     {
         $horarios = Horario::where('idComercio', $idComercio)->get();
+
+        if ($horarios) {
+            return $horarios;
+        } else {
+            return response()->json(['message' => 'No existen horarios con ese idComercio.'], 401);
+        }
+    }
+
+    //retornar un valor por idComercio para la parte del cliente, que solo tiene que ver los que estan
+    //en visible='SI'
+    public function showHorariosVisibles($idComercio)
+    {
+        $horarios = Horario::where([
+            ['idComercio', $idComercio],
+            ['visible', 'SI'],
+        ])->get();
 
         if ($horarios) {
             return $horarios;

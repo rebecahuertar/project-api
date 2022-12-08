@@ -48,6 +48,7 @@ Route::put('comercio/{id}', [ComercioController::class, 'update']);
 //rutas horarios
 Route::get('horario/{id}', [HorarioController::class, 'show']);
 Route::get('horarios/{idComercio}', [HorarioController::class, 'showHorarios']);
+Route::get('horarios/visible/{idComercio}', [HorarioController::class, 'showHorariosVisibles']);
 Route::post('horario', [HorarioController::class, 'store']);
 Route::put('horario/{id}', [HorarioController::class, 'update']);
 Route::delete('horario/{id}', [HorarioController::class, 'destroy']);
@@ -55,6 +56,7 @@ Route::delete('horario/{id}', [HorarioController::class, 'destroy']);
 //rutas dia de apertura
 Route::get('dia/{id}', [DiaAperturaController::class, 'show']);
 Route::get('dias/{idComercio}', [DiaAperturaController::class, 'showDias']);
+Route::get('dias/visible/{idComercio}', [DiaAperturaController::class, 'showDiasVisibles']);
 Route::post('dia', [DiaAperturaController::class, 'store']);
 Route::put('dia/{id}', [DiaAperturaController::class, 'update']);
 Route::delete('dia/{id}', [DiaAperturaController::class, 'destroy']);
@@ -69,6 +71,7 @@ Route::delete('producto/{id}', [ProductoComercioController::class, 'destroy']);
 //rutas mensajes
 Route::get('mensaje/{id}', [MensajeController::class, 'show']);
 Route::get('mensajes/{idComercio}', [MensajeController::class, 'showMensajes']);
+Route::get('mensajes/visible/{idComercio}', [MensajeController::class, 'showMensajesVisibles']);
 Route::post('mensaje', [MensajeController::class, 'store']);
 Route::put('mensaje/{id}', [MensajeController::class, 'update']);
 Route::delete('mensaje/{id}', [MensajeController::class, 'destroy']);
@@ -78,8 +81,13 @@ Route::get('clientes', [ClienteController::class, 'index']);
 Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::post('cliente', [ClienteController::class, 'store']);
 Route::put('cliente/{id}', [ClienteController::class, 'update']);
+
 Route::get('cliente/favoritos/{idCliente}', [ClienteController::class, 'favoritos']);
-Route::delete('cliente/favorito/{idCliente}/{idComercio}', [ClienteController::class, 'destroy']);
+Route::get('cliente/mensajes/{idCliente}', [ClienteController::class, 'mensajesFavoritos']);
+Route::put('cliente/nomensaje/{idFavorito}', [ClienteController::class, 'noMensajesfavoritos']);
+Route::put('cliente/simensaje/{idFavorito}', [ClienteController::class, 'siMensajesfavoritos']);
+Route::delete('cliente/favorito/{id}', [ClienteController::class, 'destroyfavorito']);
+
 
 //rutas categorias
 Route::get('categoria', [CategoriaController::class, 'index']);

@@ -29,10 +29,26 @@ class MensajeController extends Controller
         }
     }
 
-    //retornar un valor por idComercio
+    //retornar un valor por idComercio para la parte del comercio
     public function showMensajes($idComercio)
     {
         $mensajes = Mensaje::where('idComercio', $idComercio)->get();
+
+        if ($mensajes) {
+            return $mensajes;
+        } else {
+            return response()->json(['message' => 'No existen mensajes con ese idComercio.'], 401);
+        }
+    }
+
+    //retornar un valor por idComercio para la parte del cliente, que solo tiene que ver los que estan
+    //en visible='SI'
+    public function showMensajesVisibles($idComercio)
+    {
+        $mensajes = Mensaje::where([
+            ['idComercio', $idComercio],
+            ['visible', 'SI'],
+        ])->get();
 
         if ($mensajes) {
             return $mensajes;

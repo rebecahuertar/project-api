@@ -30,10 +30,26 @@ class DiaAperturaController extends Controller
         }
     }
 
-    //retornar un valor por idComercio
+    //retornar un valor por idComercio para la parte del comercio
     public function showDias($idComercio)
     {
         $dias = DiaApertura::where('idComercio', $idComercio)->get();
+
+        if ($dias) {
+            return $dias;
+        } else {
+            return response()->json(['message' => 'No existen dias de apertura con ese idComercio.'], 401);
+        }
+    }
+
+    //retornar un valor por idComercio para la parte del cliente, que solo tiene que ver los que estan
+    //en visible='SI'
+    public function showDiasVisibles($idComercio)
+    {
+        $dias = DiaApertura::where([
+            ['idComercio', $idComercio],
+            ['visible', 'SI'],
+        ])->get();
 
         if ($dias) {
             return $dias;
