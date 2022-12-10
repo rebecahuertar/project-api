@@ -10,6 +10,7 @@ class FavoritoCliente extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'idCliente',
         'idComercio',
         'verMensajes'

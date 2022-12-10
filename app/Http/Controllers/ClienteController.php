@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Cliente;
-use App\Models\Comercio;
-use App\Models\FavoritoCliente;
 use App\Models\Municipio;
 use App\Models\Provincia;
 use App\Models\User;
@@ -111,74 +109,5 @@ class ClienteController extends Controller
         ]);
 
         return response()->json(['message' => 'Actualizado correctamente.']);
-    }
-
-    //favoritos del cliente
-    public function favoritos($id)
-    {
-        $cliente = FavoritoCliente::select('favorito_clientes.id', 'favorito_clientes.idCliente', 'favorito_clientes.idComercio', 'comercios.nombreComercio', 'favorito_clientes.verMensajes')
-            ->join('comercios', 'favorito_clientes.idComercio', '=', 'comercios.id')
-            ->where('favorito_clientes.idCliente', $id)
-            ->get();
-
-        if ($cliente) {
-            return $cliente;
-        } else {
-            return response()->json(['message' => 'No hay favoritos para este cliente.'], 401);
-        }
-    }
-
-    //favoritos del cliente
-    public function mensajesFavoritos($id)
-    {
-        $mensajes = FavoritoCliente::select('favorito_clientes.id as idFavorito', 'favorito_clientes.idCliente', 'favorito_clientes.idComercio', 'comercios.nombreComercio', 'favorito_clientes.verMensajes', 'mensajes.id as idMensaje', 'mensajes.mensaje', 'mensajes.visible', 'mensajes.updated_at')
-            ->join('comercios', 'favorito_clientes.idComercio', '=', 'comercios.id')
-            ->join('mensajes', 'mensajes.idComercio', '=', 'comercios.id')
-            ->where('favorito_clientes.idCliente', $id)
-            ->where('favorito_clientes.verMensajes', "SI")
-            ->where('mensajes.visible', "SI")
-            ->orderby('updated_at')
-            ->get();
-
-        if ($mensajes) {
-            return $mensajes;
-        } else {
-            return response()->json(['message' => 'No hay mensajes de comercios favoritos para este cliente.'], 401);
-        }
-    }
-
-    //actualizar favorito para no ver sus mensajes
-    public function noMensajesfavoritos($id)
-    {
-
-        $favorito = FavoritoCliente::where('id', $id)->firstOrFail();
-        $favorito->update([
-            'verMensajes' => 'NO',
-        ]);
-
-        return response()->json(['message' => 'Actualizado correctamente.']);
-    }
-
-    //actualizar favorito para si ver sus mensajes
-    public function siMensajesfavoritos($id)
-    {
-
-        $favorito = FavoritoCliente::where('id', $id)->firstOrFail();
-        $favorito->update([
-            'verMensajes' => 'SI',
-        ]);
-
-        return response()->json(['message' => 'Actualizado correctamente.']);
-    }
-
-
-    //eliminar favorito
-    public function destroyfavorito($id)
-    {
-
-        FavoritoCliente::where('id', $id)->firstOrFail()->delete();
-
-        //return response()->json(['message' => 'Eliminado favorito.']);
-        return 204;
     }
 }

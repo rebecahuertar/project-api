@@ -10,6 +10,7 @@ use App\Http\Controllers\ProvinciaController;
 use App\Http\Controllers\MunicipioController;
 use App\Http\Controllers\ComercioController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\FavoritoController;
 use App\Http\Controllers\HorarioController;
 use App\Http\Controllers\DiaAperturaController;
 use App\Http\Controllers\ProductoComercioController;
@@ -82,11 +83,14 @@ Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::post('cliente', [ClienteController::class, 'store']);
 Route::put('cliente/{id}', [ClienteController::class, 'update']);
 
-Route::get('cliente/favoritos/{idCliente}', [ClienteController::class, 'favoritos']);
-Route::get('cliente/mensajes/{idCliente}', [ClienteController::class, 'mensajesFavoritos']);
-Route::put('cliente/nomensaje/{idFavorito}', [ClienteController::class, 'noMensajesfavoritos']);
-Route::put('cliente/simensaje/{idFavorito}', [ClienteController::class, 'siMensajesfavoritos']);
-Route::delete('cliente/favorito/{id}', [ClienteController::class, 'destroyfavorito']);
+
+//rutas favoritos
+Route::get('favoritos/{idCliente}', [FavoritoController::class, 'favoritos']);
+Route::get('favoritos/vermensajes/{idCliente}', [FavoritoController::class, 'mensajesFavoritos']);
+Route::get('favorito/comprobarFav/{idCliente}/{idComercio}', [FavoritoController::class, 'comprobarFavorito']);
+Route::post('favorito', [FavoritoController::class, 'storeFavorito']);
+Route::put('favorito/vermensaje/{idFavorito}', [FavoritoController::class, 'updateMensajesfavoritos']);
+Route::delete('favorito/{idCliente}/{idComercio}', [FavoritoController::class, 'destroyfavorito']);
 
 
 //rutas categorias
