@@ -45,6 +45,8 @@ Route::get('comercio', [ComercioController::class, 'index']);
 Route::get('comercio/{id}', [ComercioController::class, 'show']);
 Route::post('comercio', [ComercioController::class, 'store']);
 Route::put('comercio/{id}', [ComercioController::class, 'update']);
+//rutas buscador
+Route::get('comercio/buscador/{dato}', [ComercioController::class, 'buscador']);
 
 //rutas horarios
 Route::get('horario/{id}', [HorarioController::class, 'show']);

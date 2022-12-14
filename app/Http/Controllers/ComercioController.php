@@ -14,7 +14,7 @@ class ComercioController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['store']]);
+        $this->middleware('auth:api', ['except' => ['show', 'store', 'buscador']]);
     }
 
     //retornar todos los valores
@@ -148,5 +148,24 @@ class ComercioController extends Controller
         $comercio = Comercio::findOrFail($id);
         $comercio->delete();
         return 204;
+    }
+
+    public function buscador($dato)
+    {
+
+        $comercio = Comercio::select('comercios.id as idComercio', 'comercios.nombreComercio', 'comercios.descripcion', 'comercios.direccion', 'provincias.provincia', 'municipios.municipio', 'comercios.codigopostal')
+            ->join('provincias', 'provincias.id', '=', 'comercios.idProvincia')
+            ->join('municipios', 'municipios.id', '=', 'comercios.idMunicipio')
+            ->join('producto_comercios', 'producto_comercios.idComercio', '=', 'comercios.id')
+            ->where('comercios.nombreComercio', 'LIKE', '%' . $dato . '%')
+            ->orWhere('comercios.descripcion', 'LIKE', '%' . $dato . '%')
+            ->orWhere('producto_comercios.producto', 'LIKE', '%' . $dato . '%')
+            ->distinct()
+            ->get();
+
+        if (!$comercio->isEmpty()) {
+            return $comercio;
+        }
+        return response()->json(['message' => 'No hay resultados con esa búsqueda.'], 401);
     }
 }

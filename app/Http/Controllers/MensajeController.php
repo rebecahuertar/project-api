@@ -9,7 +9,7 @@ class MensajeController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['show', 'showMensajes', 'showMensajesVisibles']]);
     }
 
     //retornar un valor por id
