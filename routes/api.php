@@ -85,7 +85,6 @@ Route::get('cliente/{id}', [ClienteController::class, 'show']);
 Route::post('cliente', [ClienteController::class, 'store']);
 Route::put('cliente/{id}', [ClienteController::class, 'update']);
 
-
 //rutas favoritos
 Route::get('favoritos/{idCliente}', [FavoritoController::class, 'favoritos']);
 Route::get('favoritos/vermensajes/{idCliente}', [FavoritoController::class, 'mensajesFavoritos']);
@@ -93,7 +92,6 @@ Route::get('favorito/comprobarFav/{idCliente}/{idComercio}', [FavoritoController
 Route::post('favorito', [FavoritoController::class, 'storeFavorito']);
 Route::put('favorito/vermensaje/{idFavorito}', [FavoritoController::class, 'updateMensajesfavoritos']);
 Route::delete('favorito/{idCliente}/{idComercio}', [FavoritoController::class, 'destroyfavorito']);
-
 
 //rutas categorias
 Route::get('categoria', [CategoriaController::class, 'index']);

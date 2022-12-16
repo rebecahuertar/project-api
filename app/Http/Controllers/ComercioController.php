@@ -106,8 +106,6 @@ class ComercioController extends Controller
         } else {
             response()->json(['message' => 'Ha ocurrido un error en la creación del usuario.'], 401);
         }
-
-
         return response()->json([
             'message' => 'Usuario comercio registrado correctamente.'
         ]);
@@ -150,6 +148,7 @@ class ComercioController extends Controller
         return 204;
     }
 
+    //para buscar comercios por nombre, descripcion, productos, etc..
     public function buscador($dato)
     {
 
