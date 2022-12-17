@@ -60,6 +60,7 @@ class ComercioController extends Controller
         }
     }
     //crear nuevo usuario
+    //hay que crearlo en la tabla users y comercios.
     public function store(Request $request)
     {
         $existEmail = User::where('email', $request->email)->first();
@@ -111,6 +112,7 @@ class ComercioController extends Controller
         ]);
     }
     //actualizar usuario
+    //hay que actualizarlo en la tabla users y comercios.
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);

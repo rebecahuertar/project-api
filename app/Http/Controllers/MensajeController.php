@@ -29,7 +29,7 @@ class MensajeController extends Controller
         }
     }
 
-    //retornar un valor por idComercio para la parte del comercio
+    //retornar un valor por idComercio para la parte del comercio-cuenta
     public function showMensajes($idComercio)
     {
         $mensajes = Mensaje::where('idComercio', $idComercio)->get();

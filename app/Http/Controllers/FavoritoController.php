@@ -73,7 +73,8 @@ class FavoritoController extends Controller
     }
 
 
-    //actualizar favorito para no ver sus mensajes
+    //actualizar favorito para ver o no sus mensajes
+    //segun el valor que llega desde verMensajes, puede ser un SI o No.
     public function updateMensajesfavoritos(Request $request, $id)
     {
 
@@ -85,7 +86,7 @@ class FavoritoController extends Controller
         return response()->json(['message' => 'Actualizado correctamente.']);
     }
 
-
+    //comprobar si el cliente ya tiene como favorito ese comercio.
     public function comprobarFavorito($idCliente, $idComercio)
     {
 
@@ -94,10 +95,8 @@ class FavoritoController extends Controller
             ->first();
 
         if ($existFav) {
-            //return response()->json(['respuesta' => true]);
             return response()->json(true);
         } else {
-            //return response()->json(['respuesta' => false]);
             return response()->json(false);
         }
     }

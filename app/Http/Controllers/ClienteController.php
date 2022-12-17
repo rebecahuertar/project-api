@@ -51,6 +51,7 @@ class ClienteController extends Controller
         }
     }
     //crear nuevo usuario
+    //hay que crearlo en la tabla users y clientes
     public function store(Request $request)
     {
         $existEmail = User::where('email', $request->email)->first();
@@ -90,6 +91,7 @@ class ClienteController extends Controller
         ]);
     }
     //actualizar usuario
+    //hay que actualizalo en la tabla users y clientes
     public function update(Request $request, $id)
     {
 

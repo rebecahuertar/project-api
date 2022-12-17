@@ -30,7 +30,7 @@ class DiaAperturaController extends Controller
         }
     }
 
-    //retornar un valor por idComercio para la parte del comercio
+    //retornar un valor por idComercio para la parte del comercio-cuenta
     public function showDias($idComercio)
     {
         $dias = DiaApertura::where('idComercio', $idComercio)->get();
@@ -57,13 +57,14 @@ class DiaAperturaController extends Controller
             return response()->json(['message' => 'No existen dias de apertura con ese idComercio.'], 401);
         }
     }
-    //crear nuevo
+    //crear nuevo dia
     public function store(Request $request)
     {
         $dia = DiaApertura::create($request->all());
         return $dia;
     }
 
+    //actualizar dia
     public function update(Request $request, $id)
     {
         $dia = DiaApertura::findOrFail($id);
@@ -77,6 +78,8 @@ class DiaAperturaController extends Controller
         return response()->json(['message' => 'Actualizado correctamente.']);
     }
 
+
+    //eliminar dia
     public function destroy($idDia)
     {
 
