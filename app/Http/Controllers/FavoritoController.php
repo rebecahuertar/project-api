@@ -22,10 +22,10 @@ class FavoritoController extends Controller
             ->where('favorito_clientes.idCliente', $id)
             ->get();
 
-        if ($cliente) {
+        if (!$cliente->isEmpty()) {
             return $cliente;
         } else {
-            return response()->json(['message' => 'No hay favoritos para este cliente.'], 401);
+            return response()->json(['message' => 'No hay favoritos que mostrar.'], 401);
         }
     }
 
@@ -65,10 +65,10 @@ class FavoritoController extends Controller
             ->orderby('updated_at')
             ->get();
 
-        if ($mensajes) {
+        if (!$mensajes->isEmpty()) {
             return $mensajes;
         } else {
-            return response()->json(['message' => 'No hay mensajes de comercios favoritos para este cliente.'], 401);
+            return response()->json(['message' => 'No hay mensajes de comercios favoritos.'], 401);
         }
     }
 
