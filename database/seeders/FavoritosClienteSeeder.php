@@ -38,7 +38,7 @@ class FavoritosClienteSeeder extends Seeder
         ]);
         DB::table('favorito_clientes')->insert([
             'idCliente' => '8',
-            'idComercio' => '5',
+            'idComercio' => '4',
             'verMensajes' => 'NO'
         ]);
     }

@@ -51,5 +51,15 @@ class HorarioSeeder extends Seeder
             'descripcion' => 'Domingo: 10:00 - 14:00.',
             'visible' => 'NO'
         ]);
+        DB::table('horarios')->insert([
+            'idComercio' => '4',
+            'descripcion' => 'Lunes a Viernes de 9:00 a 19:00.',
+            'visible' => 'SI'
+        ]);
+        DB::table('horarios')->insert([
+            'idComercio' => '4',
+            'descripcion' => 'Sábados de 9:00 a 14:00.',
+            'visible' => 'SI'
+        ]);
     }
 }

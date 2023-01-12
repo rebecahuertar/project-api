@@ -36,5 +36,21 @@ class ProductoComercioSeeder extends Seeder
             'idComercio' => '2',
             'producto' => 'Bebida'
         ]);
+        DB::table('producto_comercios')->insert([
+            'idComercio' => '3',
+            'producto' => 'Zapatos'
+        ]);
+        DB::table('producto_comercios')->insert([
+            'idComercio' => '4',
+            'producto' => 'Pan'
+        ]);
+        DB::table('producto_comercios')->insert([
+            'idComercio' => '4',
+            'producto' => 'Fruta'
+        ]);
+        DB::table('producto_comercios')->insert([
+            'idComercio' => '5',
+            'producto' => 'Muñecas'
+        ]);
     }
 }

@@ -31,5 +31,10 @@ class MensajesSeeder extends Seeder
             'mensaje' => 'A partir del día 15 de Junio entra el nuevo horario de verano.',
             'visible' => 'NO'
         ]);
+        DB::table('mensajes')->insert([
+            'idComercio' => '4',
+            'mensaje' => 'A partir del día 15 de Junio entra el nuevo horario de verano.',
+            'visible' => 'SI'
+        ]);
     }
 }

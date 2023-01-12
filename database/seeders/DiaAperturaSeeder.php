@@ -34,5 +34,11 @@ class DiaAperturaSeeder extends Seeder
             'estado' => 'ABIERTO',
             'visible' => 'SI'
         ]);
+        DB::table('dia_aperturas')->insert([
+            'idComercio' => '4',
+            'dia' => '2022-12-11',
+            'estado' => 'ABIERTO',
+            'visible' => 'SI'
+        ]);
     }
 }
